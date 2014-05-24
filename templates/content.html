@@ -1,5 +1,5 @@
 <h1>Welcome!</h1>
-{% if 'username' in session %}
+{% if 'username' in request.cookies %}
 <p>You are logged in.</p>
 <a href="/logout" class="btn btn-primary btn-lg" role="button">Sign Out</a>
 {% else %}

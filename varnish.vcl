@@ -27,3 +27,32 @@ sub vcl_backend_response {
                                  /*  the included object            */
     }
 }
+
+sub vcl_hash {
+    hash_data(req.url);
+    hash_data(req.http.host);
+
+    if (req.http.cookie ~ "username=[^;]+") {
+        set req.http.X-Varnish-Logged-In = true;
+    }
+
+    if (req.url ~ ".*\?.*cache=user.*" && req.http.X-Varnish-Logged-In) {
+        set req.http.X-Varnish-Hashed-On = req.http.cookie;
+    }
+
+    if (req.url ~ ".*\?.*cache=login.*" && req.http.X-Varnish-Logged-In) {
+        set req.http.X-Varnish-Hashed-On = "logged-in";
+    }
+
+    if (req.url ~ "^/esi/.*") {
+        hash_data(req.http.X-Varnish-Hashed-On);
+    }
+
+    return(lookup);
+}
+
+sub vcl_recv {
+    if( req.http.Cookie ~ "username" ) {
+        return(hash);
+    }
+}

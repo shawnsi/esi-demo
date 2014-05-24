@@ -7,11 +7,11 @@
       <a class="navbar-brand" href="#">ESI Demo</a>
     </div>
 
-    <esi:include src="/esi/status"/>
+    <esi:include src="/esi/status?cache=user"/>
   </div><!-- /.container-fluid -->
 </div>
 
 <div class="container">
-    <esi:include src="/esi/content"/>
+    <esi:include src="/esi/content?cache=login"/>
 </div>
 {% endblock %}

@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
-from flask import Flask, redirect, render_template, session, url_for
+from flask import Flask, make_response, redirect, render_template, request, url_for
 import names
 
 app = Flask(__name__)
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 @app.route("/")
 def index():
@@ -23,14 +22,16 @@ def status():
 
 @app.route("/login")
 def login():
-    session['username'] = names.get_full_name()
-    return redirect(url_for('index'))
+    resp = make_response(redirect(url_for('index')))
+    resp.set_cookie('username', names.get_full_name())
+    return resp
 
 
 @app.route("/logout")
 def logout():
-    session.pop('username')
-    return redirect(url_for('index'))
+    resp = make_response(redirect(url_for('index')))
+    resp.set_cookie('username', expires=0)
+    return resp
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
