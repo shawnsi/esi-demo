@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ESI Demo</a>
+    </div>
+
+    <esi:include src="/esi/status"/>
+  </div><!-- /.container-fluid -->
+</div>
+
+<div class="container">
+    <esi:include src="/esi/content"/>
+</div>
+{% endblock %}

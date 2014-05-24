@@ -1,0 +1,8 @@
+<h1>Welcome!</h1>
+{% if 'username' in session %}
+<p>You are logged in.</p>
+<a href="/logout" class="btn btn-primary btn-lg" role="button">Sign Out</a>
+{% else %}
+<p>You are currently anonymous.  Sign in to see personalized content.</p>
+<a href="/login" class="btn btn-primary btn-lg" role="button">Sign In</a>
+{% endif %}

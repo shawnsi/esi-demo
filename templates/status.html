@@ -1,0 +1,6 @@
+<!-- <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p> -->
+{% if 'username' in session %}
+<p class="navbar-text navbar-right">You are logged in as {{ session['username'] }}</p>
+{% else %}
+<p class="navbar-text navbar-right">Anonymous</p>
+{% endif %}
